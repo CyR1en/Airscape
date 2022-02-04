@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+}
+
+group 'apcs'
+version '1.0-SNAPSHOT'
+mainClassName = 'com.cyr1en.airscape.Launcher'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile group: 'com.github.CyR1en', name: 'CGDL', version: '2b5f81886a'
+}
+
+jar {
+    baseName = project.name
+    manifest {
+        attributes 'Implementation-Version': version
+        attributes 'Main-Class': mainClassName
+    }
+}
+
+shadowJar {
+    classifier = "shaded"
+}
+
+build {
+    dependsOn shadowJar
+}
